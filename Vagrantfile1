@@ -1,0 +1,19 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+Vagrant.configure("2") do |config|
+   (1..3).each do |i|
+   config.vm.define "test-#{i}" do |test|
+   test.vm.hostname = "test-#{i}"
+   test.vm.network "public_network", bridge: "TP-LINK Wireless USB Adapter" 
+   end
+   config.vm.box = "ubuntu2204"
+     config.vm.provider "virtualbox" do |vb|
+     vb.memory = "2048"
+	 vb.cpus = "2"
+   end
+   config.vm.provision "shell", inline: <<-SHELL
+   sudo apt-get update;
+   sudo apt-get install -y curl wget git nano mc
+   SHELL
+   end
+end
