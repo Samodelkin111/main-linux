@@ -1,0 +1,26 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "ubuntu2204"
+
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = 2048
+    vb.cpus = 2
+  end
+
+  config.vm.define "nfss" do |nfss|
+    nfss.vm.network "private_network", ip: "192.168.1.100", virtualbox__intnet: "net1"
+    nfss.vm.hostname = "test-nfss"
+    nfsc.vm.provision "shell", path: "nfss.sh"
+  end
+
+  config.vm.define "nfsc" do |nfsc|
+    nfsc.vm.network "private_network", ip: "192.168.1.101", virtualbox__intnet: "net1"
+    nfsc.vm.hostname = "test-nfsc"
+    nfsc.vm.provision "shell", path: "nfsc.sh"
+  end
+
+end
+ 
