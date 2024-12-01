@@ -1,7 +1,7 @@
 #! /bin/bash
 sudo -i
-apt update;
-apt install -y nfs-common curl wget git nano mc
+apt-get update;
+apt-get install -y nfs-common curl wget git nano mc
 echo "NFS server setting"
 mkdir -p /srv/share/upload;
 chown -R nobody:nogroup /srv/share;
