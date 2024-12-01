@@ -1,7 +1,7 @@
 #! /bin/bash
 sudo -i;
-apt update;
-apt install -y nfs-common curl wget git nano mc
+apt-get update;
+aptget install -y nfs-common curl wget git nano mc
 echo "NFS cliet setting"
 echo "192.168.1.100:/srv/share/ /mnt nfs vers=3,noauto, x-systemd.automount 0 0" >> /etc/fstab;
 root@test-nfsc:~# systemctl daemon-reload;
