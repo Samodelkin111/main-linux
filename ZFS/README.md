@@ -25,7 +25,7 @@
 - настройка хоста с помощью автоматически запускаемого скриптов 
 ### Основная часть: 
 Использованное ПО: vagrant 2.4.1, Virtualbox 7.0.20, локальный бокс Ubuntu 2204.
-Проблемы: не проходила команда  ```zpool import -d zpoolexport/ otus newotus``` с ошибкой pool not found, в скрипт это не попало чтобы потом не разбираться с именем пула.
+Проблемы: не проходила команда  ```zpool import -d zpoolexport/ otus newotus``` с ошибкой ```no such pool available```, в скрипт это не попало. Глюк или это не работает под Ubuntu.
 Пропустил команду ```zfs get all``` - очень много вывода.
 #### Определение наилучшего алгоритма сжатия.
  ```
@@ -59,5 +59,37 @@ otus  compression  zle             local
 vagrant@test-zfs:~$ zfs get checksum otus;
 NAME  PROPERTY  VALUE      SOURCE
 otus  checksum  sha256     local
+vagrant@test-zfs:~$ zdb | grep type
+        type: 'root'
+            type: 'mirror'
+                type: 'file'
+                type: 'file'
+        type: 'root'
+            type: 'mirror'
+                type: 'disk'
+                type: 'disk'
+        type: 'root'
+            type: 'mirror'
+                type: 'disk'
+                type: 'disk'
+        type: 'root'
+            type: 'mirror'
+                type: 'disk'
+                type: 'disk'
+        type: 'root'
+            type: 'mirror'
+                type: 'disk'
+                type: 'disk'
 ```
+Доступно 347мб, режим чтение-запись, тип пула - зеркало (не очень понял задание), размер блока 128кб, сжатие ZLE, контрольная сумма SHA256.
+#### Работа со снапшотом.
+```
+oot@test-zfs:~# find /otus/test -name "secret_message"
+/otus/test/task1/file_mess/secret_message
+root@test-zfs:~# cat /otus/test/task1/file_mess/secret_message
+/lessonshttps://otus.ru/lessons/linux-hl/
+root@test-zfs:~# cat /otus/test/task1/file_mess/secret_message
+https://otus.ru/lessons/linux-hl/
+```
+Вывод последних команд, импорт считать успешным.
    ### Файлы:
