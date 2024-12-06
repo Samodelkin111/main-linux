@@ -1,0 +1,20 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+Vagrant.configure("2") do |config|
+ config.vm.define "test-zfs" do |test|
+   test.vm.hostname = "test-zfs"
+   (1..8).each do |i|
+   config.vm.disk :disk, name: "disk-#{i}", size: "512MB"
+   end
+ end
+ config.vm.box = "ubuntu2204"
+ config.vm.provider "virtualbox" do |vb|
+     vb.memory = "2048"
+	 vb.cpus = "2"
+ end
+ config.vm.provision "shell", inline: <<-SHELL
+   sudo apt-get update;
+   sudo apt-get install -y curl wget git nano mc zfsutils-linux
+   SHELL
+ end
+ 
