@@ -25,7 +25,7 @@
 - настройка хоста с помощью автоматически запускаемого скриптов 
 ### Основная часть: 
 Использованное ПО: vagrant 2.4.1, Virtualbox 7.0.20, локальный бокс Ubuntu 2204.
-Проблемы: не проходила команда  ```zpool import -d zpoolexport/ otus newotus``` с ошибкой ```no such pool available```, в скрипт это не попало. Глюк или это не работает под Ubuntu.
+Проблемы: не проходила команда  ```zpool import -d zpoolexport/ otus newotus``` с ошибкой ```no such pool available```, в скрипт это не попало. Скорее всего должно быть ```zpool import otus newotus```. Стена глюков и нет хоста на Linux.
 Пропустил команду ```zfs get all``` - очень много вывода.
 #### Определение наилучшего алгоритма сжатия.
  ```
@@ -93,3 +93,5 @@ https://otus.ru/lessons/linux-hl/
 ```
 Вывод последних команд, импорт считать успешным.
    ### Файлы:
+[Vagrantfile](https://github.com/Samodelkin111/main-linux/blob/main/ZFS/Vagrantfile)
+[Скрипт](https://github.com/Samodelkin111/main-linux/blob/main/ZFS/zfs.sh)
